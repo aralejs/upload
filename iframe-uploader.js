@@ -33,7 +33,7 @@
         $trigger = $(trigger);
         settings.action = settings.action || $trigger.data('action');
         settings.name = settings.name || $trigger.data('name');
-        settings.data = settings.data || $trigger.data('data');
+        settings.data = settings.data || parse($trigger.data('data'));
         settings.success = settings.success || $trigger.data('success');
         this.settings = settings;
 
@@ -129,6 +129,24 @@
         return inputs;
     }
 
+    function parse(str) {
+        if (!str) return {};
+        var ret = {};
+
+        var pairs = str.split('&');
+        var unescape = function(s) {
+            return decodeURIComponent(s.replace(/\+/g, ' '));
+        }
+
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].split('=');
+            var key = unescape(pair[0]);
+            var val = unescape(pair[1]);
+            ret[key] = val;
+        }
+
+        return ret;
+    };
 
     // CommonJS compatable
     if (typeof module !== 'undefined') {
