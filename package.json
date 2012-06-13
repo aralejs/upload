@@ -1,0 +1,23 @@
+{
+    "name": "selection",
+    "version": "0.9.0",
+    "description": "",
+    "homepage": "https://lepture.github.com/iframe-uploader/",
+    "author": "Hsiaoming Yang <lepture@me.com> (http://lepture.com)",
+    "keywords": [
+        "upload",
+        "ajax upload",
+        "iframe upload"
+    ],
+    "main": "./iframe-uploader.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lepture/iframe-uploader.git"
+    },
+    "bugs": {
+        "url": "https://github.com/lepture/iframe-uploader/issues"
+    },
+    "licenses": [{
+        "type": "BSD"
+    }]
+}
