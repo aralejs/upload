@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>iframe-uploader</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+        <meta name="author" content="lepture" />
+        <link rel="alternate" type="application/rss+xml" href="http://feeds.lepture.com/lepture" title="Website Feed" />
+        <link rel="stylesheet" href="http://python-assets.b0.upaiyun.com/project/typo.css" />
+        <link rel="stylesheet" href="http://python-assets.b0.upaiyun.com/project/pygments.css" />
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-21475122-1']);
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+            _gaq.push(['_setCustomVar', 1, 'Project', 'iframe-uploader', 2]);
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>iframe uploader</h1>
+
+<p><strong>UNDER DEVELOPEMENT</strong></p>
+
+<h2>Syntax</h2>
+
+<p>OOP style:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IframeUploader</span><span class="p">({</span>
+    <span class="s1">&#39;trigger&#39;</span><span class="o">:</span> <span class="s1">&#39;#upload-icon&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;image&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;action&#39;</span><span class="o">:</span> <span class="s1">&#39;/upload&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;xsrf&#39;</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;success&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Chain style:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IframeUploader</span><span class="p">({</span>
+    <span class="s1">&#39;trigger&#39;</span><span class="o">:</span> <span class="s1">&#39;#upload-icon&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;image&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;action&#39;</span><span class="o">:</span> <span class="s1">&#39;/upload&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;xsrf&#39;</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">uploader</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>data api support</p>
+<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&quot;upload&quot;</span> <span class="na">data-name=</span><span class="s">&quot;image&quot;</span> <span class="na">data-action=</span><span class="s">&quot;/upload&quot;</span> <span class="na">data-data=</span><span class="s">&quot;a=a&amp;b=b&quot;</span><span class="nt">&gt;</span>Upload<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IframeUploader</span><span class="p">({</span><span class="s1">&#39;trigger&#39;</span><span class="o">:</span> <span class="s1">&#39;#upload&#39;</span><span class="p">});</span>
+<span class="nx">uploader</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+        </div>
+        <hr class="end" />
+        <div id="footer">
+            <a href="https://github.com/lepture">GitHub</a>
+            <a href="http://lepture.com">Website</a>
+            <a href="https://twitter.com/lepture">Twitter</a>
+        </div>
+        <a id="github" href="https://github.com/lepture/iframe-uploader" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0; z-index:999" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    </body>
+</html>
+
