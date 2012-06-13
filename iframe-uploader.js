@@ -19,6 +19,10 @@
     }
 
     function IframeUploader(options) {
+        if (!(this instanceof IframeUploader)) {
+            return new IframeUploader(options);
+        }
+
         var settings = {
             'trigger': null,
             'name': null,
@@ -39,7 +43,6 @@
 
         this.setup();
         this.bind();
-        return this;
     }
 
     // initialize
