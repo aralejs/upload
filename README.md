@@ -1,6 +1,7 @@
 # iframe uploader
 
-**UNDER DEVELOPEMENT**
+
+## DEMO
 
 ## Syntax
 

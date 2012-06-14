@@ -18,6 +18,7 @@ class MainHandler(tornado.web.RequestHandler):
         self.write(content)
 
     def post(self):
+        print(self.request.arguments)
         f = self.request.files.get('file', None)
         if not f:
             self.write('{"stat": "fail", "msg": "no file"}')

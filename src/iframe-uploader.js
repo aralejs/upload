@@ -29,8 +29,8 @@
 
         var settings = {
             'trigger': null,
-            'name': 'file',
-            'action': '/upload',
+            'name': null,
+            'action': null,
             'data': null,
             'change': null,
             'success': null
@@ -39,8 +39,10 @@
             $.extend(settings, options);
         }
         $trigger = $(settings.trigger);
-        settings.action = settings.action || $trigger.data('action');
-        settings.name = settings.name || $trigger.data('name');
+        console.log($trigger.data('action'));
+        settings.action = settings.action || $trigger.data('action') ||
+            '/upload';
+        settings.name = settings.name || $trigger.data('name') || 'file';
         settings.data = settings.data || parse($trigger.data('data'));
         settings.success = settings.success || $trigger.data('success');
         this.settings = settings;
@@ -79,9 +81,9 @@
     // bind events
     IframeUploader.prototype.bind = function() {
         var self = this;
-        $(self.form).css({position: 'absolute', left: '-9999px'}).
-            appendTo('body');
         $(self.settings.trigger).click(function() {
+            $(self.form).css({position: 'absolute', left: '-9999px'}).
+                appendTo('body');
             self.input.click();
             return false;
         });

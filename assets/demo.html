@@ -3,15 +3,54 @@
     <head>
         <meta charset="UTF-8">
         <title>iframe uploder</title>
+        <link rel="stylesheet" href="http://python-assets.b0.upaiyun.com/project/typo.css" />
         <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
         <script type="text/javascript" src="/src/iframe-uploader.js"></script>
     </head>
     <body>
-        <a id="button" href="#">Upload</a>
+        <div class="container">
+            <h1>Iframe Uploader DEMO</h1>
+            <p>This is a project by <a href="http://lepture.com">Hsiaoming Yang</a>.</p>
+
+            <h2>Select and Upload</h2>
+            <div class="cell">
+                <button id="uploader-1" href="#">Upload</button>
+            </div>
+
+            <h2>Select then upload</h2>
+            <div class="cell">
+                <p><button id="uploader-2" href="#">Select</button> <span id="upload-2-text"></span></p>
+                <p><button id="submit-2" href="#">Upload</button></p>
+            </div>
+
+            <h2>DATA API</h2>
+            <div class="cell">
+                <button id="uploader-3" data-action="/" data-data="a=a&b=b">Upload</button>
+            </div>
+        </div>
         <script type="text/javascript">
-            var uploader = new IframeUploader({
-                trigger: '#button',
+            new IframeUploader({
+                trigger: '#uploader-1',
                 action: '/'
+            }).success(function(data) {
+                alert(data);
+            });
+
+            var uploader = new IframeUploader({
+                trigger: '#uploader-2',
+                action: '/'
+            }).change(function(filename) {
+                $('#upload-2-text').text(filename);
+            }).success(function(data) {
+                alert(data);
+            });
+            $('#submit-2').click(function() {
+                uploader.submit();
+                return false;
+            });
+
+            new IframeUploader({
+                trigger: '#uploader-3'
             }).success(function(data) {
                 alert(data);
             });
