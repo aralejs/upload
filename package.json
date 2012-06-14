@@ -9,7 +9,7 @@
         "ajax upload",
         "iframe upload"
     ],
-    "main": "./iframe-uploader.js",
+    "main": "./src/iframe-uploader.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/lepture/iframe-uploader.git"
