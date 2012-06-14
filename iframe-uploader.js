@@ -14,8 +14,12 @@
     }
 })(function(require, exports, module) {
     var global = this;  // window
-    if (typeof jQuery === 'undefined') {
-        var $ = require('jquery');
+
+    var $;
+    if (global.jQuery) {
+        $ = global.jQuery;
+    } else {
+        $ = require('jquery');
     }
 
     function IframeUploader(options) {
@@ -25,8 +29,8 @@
 
         var settings = {
             'trigger': null,
-            'name': null,
-            'action': null,
+            'name': 'file',
+            'action': '/upload',
             'data': null,
             'change': null,
             'success': null
@@ -34,7 +38,7 @@
         if (options) {
             $.extend(settings, options);
         }
-        $trigger = $(trigger);
+        $trigger = $(settings.trigger);
         settings.action = settings.action || $trigger.data('action');
         settings.name = settings.name || $trigger.data('name');
         settings.data = settings.data || parse($trigger.data('data'));
@@ -74,29 +78,32 @@
 
     // bind events
     IframeUploader.prototype.bind = function() {
-        $(this.form).css({position: 'absolute', left: '-9999px'}).
+        var self = this;
+        $(self.form).css({position: 'absolute', left: '-9999px'}).
             appendTo('body');
-        $(this.settings.trigger).click(function() {
-            this.input.click();
+        $(self.settings.trigger).click(function() {
+            self.input.click();
+            return false;
         });
-        $(this.input).change(function() {
-            if (!this.settings.change) return this.submit();
-            var file = this.input.value;
+        $(self.input).change(function() {
+            if (!self.settings.change) return self.submit();
+            var file = self.input.value;
             if (file) file = file.substr(file.lastIndexOf('\\') + 1);
-            this.settings.change(file);
+            self.settings.change(file);
         });
     }
 
     // handle submit event
     // prepare for submiting form
     IframeUploader.prototype.submit = function() {
-        $('body').append(this.iframe);
-        $(this.iframe).load(function() {
-            var response = this.iframe.contents().find('body').html();
-            if (this.settings.success) this.settings.success(response);
-            $(this.iframe).unbind('load').remove();
+        var self = this;
+        $('body').append(self.iframe);
+        $(self.iframe).load(function() {
+            var response = $(self.iframe).contents().find('body').html();
+            if (self.settings.success) self.settings.success(response);
+            $(self.iframe).unbind('load').remove();
         });
-        this.form.submit();
+        self.form.submit();
         return this;
     }
 
@@ -155,8 +162,6 @@
     if (typeof module !== 'undefined') {
         module.exports = IframeUploader;
     } else {
-        global.selection = IframeUploader;
+        global.IframeUploader = IframeUploader;
     }
-    // jQuery plugin support
-    $.fn.IframeUploader = IframeUploader;
 });
