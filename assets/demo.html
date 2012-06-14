@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>iframe uploder</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript" src="/src/iframe-uploader.js"></script>
+    </head>
+    <body>
+        <a id="button" href="#">Upload</a>
+        <script type="text/javascript">
+            var uploader = new IframeUploader({
+                trigger: '#button',
+                action: '/'
+            }).success(function(data) {
+                alert(data);
+            });
+        </script>
+    </body>
+</html>
