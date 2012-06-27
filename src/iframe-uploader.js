@@ -15,12 +15,7 @@
 })(function(require, exports, module) {
     var global = this;  // window
 
-    var $;
-    if (global.jQuery) {
-        $ = global.jQuery;
-    } else {
-        $ = require('jquery');
-    }
+    var $ = global.jQuery || require('jquery');
 
     function IframeUploader(options) {
         if (!(this instanceof IframeUploader)) {
@@ -39,7 +34,6 @@
             $.extend(settings, options);
         }
         $trigger = $(settings.trigger);
-        console.log($trigger.data('action'));
         settings.action = settings.action || $trigger.data('action') ||
             '/upload';
         settings.name = settings.name || $trigger.data('name') || 'file';
