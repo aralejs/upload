@@ -2,17 +2,7 @@
 // ===============
 //
 
-(function(factory) {
-    if (typeof define === 'function') {
-        // seajs support
-        define(factory);
-    } else if (typeof require === 'function') {
-        // nodejs support
-        factory(require, exports, module);
-    } else {
-        factory();
-    }
-})(function(require, exports, module) {
+define(function(require, exports, module) {
     var global = this;  // window
 
     var $ = global.jQuery || require('jquery');
@@ -154,10 +144,5 @@
         return ret;
     };
 
-    // CommonJS compatable
-    if (typeof module !== 'undefined') {
-        module.exports = IframeUploader;
-    } else {
-        global.IframeUploader = IframeUploader;
-    }
+    module.exports = IframeUploader;
 });
