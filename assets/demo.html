@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Selection.js</title>
+        <title>iframe uploader</title>
         <link rel="stylesheet" href="http://python-assets.b0.upaiyun.com/project/typo.css" />
         <script type="text/javascript" src="http://seajs.org/dist/sea.js"></script>
         <script type="text/javascript">
@@ -26,6 +26,10 @@
                 <p><button id="uploader-2" href="#">Select</button> <span id="upload-2-text"></span></p>
                 <p><button id="submit-2" href="#">Upload</button></p>
             </div>
+            <h2>Only upload image</h2>
+            <div class="cell">
+                <button id="uploader-3" href="#">Upload</button>
+            </div>
         </div>
         <script type="text/javascript">
             seajs.use(['jquery', '/src/iframe-uploader'], function($, IframeUploader) {
@@ -47,6 +51,14 @@
                 $('#submit-2').click(function() {
                     uploader.submit();
                     return false;
+                });
+
+                new IframeUploader({
+                    trigger: '#uploader-3',
+                    accept: 'image/*',
+                    action: '/'
+                }).success(function(data) {
+                    alert(data);
                 });
             });
         </script>

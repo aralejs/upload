@@ -55,6 +55,7 @@ but you are on Linux or Mac, that could be easy.</p>
     <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;#upload-icon&#39;</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;image&#39;</span><span class="p">,</span>
     <span class="nx">action</span><span class="o">:</span> <span class="s1">&#39;/upload&#39;</span><span class="p">,</span>
+    <span class="nx">accept</span><span class="o">:</span> <span class="s1">&#39;image/*&#39;</span><span class="p">,</span>
     <span class="nx">data</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;xsrf&#39;</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">},</span>
     <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">alert</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
@@ -66,6 +67,7 @@ but you are on Linux or Mac, that could be easy.</p>
 <li>trigger: a valid jQuery selector</li>
 <li>name: name of the file input. for example &#39;file&#39;, &#39;image&#39;.</li>
 <li>action: form&#39;s action. Where to post your file.</li>
+<li>accept: file input accept attribute</li>
 <li>data: extra data that you want to post, for example &#39;xsrf&#39;</li>
 <li>success: success callback</li>
 </ul>

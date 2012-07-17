@@ -17,6 +17,7 @@ define(function(require, exports, module) {
             'name': null,
             'action': null,
             'data': null,
+            'accept': null,
             'change': null,
             'success': null
         };
@@ -28,6 +29,7 @@ define(function(require, exports, module) {
             '/upload';
         settings.name = settings.name || $trigger.data('name') || 'file';
         settings.data = settings.data || parse($trigger.data('data'));
+        settings.accept = settings.accept || $trigger.data('accept');
         settings.success = settings.success || $trigger.data('success');
         this.settings = settings;
 
@@ -55,6 +57,7 @@ define(function(require, exports, module) {
 
         var input = document.createElement('input');
         input.type = 'file'; input.name = this.settings.name;
+        if (this.settings.accept) input.accept = this.settings.accept;
         form.appendChild(input);
 
         this.input = input;

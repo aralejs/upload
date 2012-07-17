@@ -40,6 +40,7 @@ var uploader = new IframeUploader({
     trigger: '#upload-icon',
     name: 'image',
     action: '/upload',
+    accept: 'image/*',
     data: {'xsrf': 'hash'},
     success: function(response) {
         alert(response);
@@ -50,6 +51,7 @@ var uploader = new IframeUploader({
 - trigger: a valid jQuery selector
 - name: name of the file input. for example 'file', 'image'.
 - action: form's action. Where to post your file.
+- accept: file input accept attribute
 - data: extra data that you want to post, for example 'xsrf'
 - success: success callback
 
