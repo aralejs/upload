@@ -87,10 +87,10 @@ define(function(require, exports, module) {
     IframeUploader.prototype.submit = function() {
         var self = this;
         $('body').append(self.iframe);
-        $(self.iframe).load(function() {
+        $(self.iframe).on('load', function() {
             var response = $(self.iframe).contents().find('body').html();
             if (self.settings.success) self.settings.success(response);
-            $(self.iframe).unbind('load').remove();
+            $(self.iframe).off('load').remove();
         });
         self.form.submit();
         return this;
