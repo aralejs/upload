@@ -63,7 +63,7 @@ define(function(require, exports, module) {
         this.input = input;
         this.form = form;
         return this;
-    }
+    };
 
     // bind events
     IframeUploader.prototype.bind = function() {
@@ -80,7 +80,7 @@ define(function(require, exports, module) {
             if (file) file = file.substr(file.lastIndexOf('\\') + 1);
             self.settings.change(file);
         });
-    }
+    };
 
     // handle submit event
     // prepare for submiting form
@@ -94,7 +94,7 @@ define(function(require, exports, module) {
         });
         self.form.submit();
         return this;
-    }
+    };
 
     // handle change event
     // when value in file input changed
@@ -102,14 +102,14 @@ define(function(require, exports, module) {
         if (!callback) return this;
         this.settings.change = callback;
         return this;
-    }
+    };
 
     // handle when upload success
     IframeUploader.prototype.success = function(callback) {
         if (!callback) return this;
         this.settings.success = callback;
         return this;
-    }
+    };
 
     // Helpers
     // -------------
@@ -118,7 +118,7 @@ define(function(require, exports, module) {
         if (!data) return [];
 
         var inputs = [], i;
-        for (name in data) {
+        for (var name in data) {
             i = document.createElement('input');
             i.type = 'hidden';
             i.name = name;
@@ -135,7 +135,7 @@ define(function(require, exports, module) {
         var pairs = str.split('&');
         var unescape = function(s) {
             return decodeURIComponent(s.replace(/\+/g, ' '));
-        }
+        };
 
         for (var i = 0; i < pairs.length; i++) {
             var pair = pairs[i].split('=');
@@ -145,7 +145,7 @@ define(function(require, exports, module) {
         }
 
         return ret;
-    };
+    }
 
     module.exports = IframeUploader;
 });
