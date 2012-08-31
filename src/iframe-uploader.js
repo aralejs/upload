@@ -19,6 +19,7 @@ define(function(require, exports, module) {
             'data': null,
             'accept': null,
             'change': null,
+            'error': null,
             'success': null
         };
         if (options) {
@@ -42,7 +43,7 @@ define(function(require, exports, module) {
     IframeUploader.prototype.setup = function() {
         var now = new Date().getTime();
         var iframe = document.createElement('iframe');
-        iframe.style.display = 'none'; iframe.href = 'javascript:;';
+        iframe.style.display = 'none'; iframe.href = '#';
         iframe.name = 'iframe-uploader-' + now;
         this.iframe = iframe;
 
@@ -89,8 +90,12 @@ define(function(require, exports, module) {
         $('body').append(self.iframe);
         $(self.iframe).on('load', function() {
             var response = $(self.iframe).contents().find('body').html();
-            if (self.settings.success) self.settings.success(response);
             $(self.iframe).off('load').remove();
+            if (!response) {
+                if (self.settings.error) self.settings.error(self.input.value);
+            } else {
+                if (self.settings.success) self.settings.success(response);
+            }
         });
         self.form.submit();
         return this;
@@ -108,6 +113,13 @@ define(function(require, exports, module) {
     IframeUploader.prototype.success = function(callback) {
         if (!callback) return this;
         this.settings.success = callback;
+        return this;
+    };
+
+    // handle when upload success
+    IframeUploader.prototype.error = function(callback) {
+        if (!callback) return this;
+        this.settings.error = callback;
         return this;
     };
 
