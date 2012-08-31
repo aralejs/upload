@@ -42,6 +42,9 @@ var uploader = new IframeUploader({
     action: '/upload',
     accept: 'image/*',
     data: {'xsrf': 'hash'},
+    error: function(file) {
+        alert(file);
+    },
     success: function(response) {
         alert(response);
     }
@@ -53,6 +56,7 @@ var uploader = new IframeUploader({
 - action: form's action. Where to post your file.
 - accept: file input accept attribute
 - data: extra data that you want to post, for example 'xsrf'
+- error: error callback
 - success: success callback
 
 
@@ -66,6 +70,8 @@ var uploader = new IframeUploader({
     data: {'xsrf': 'hash'}
 }).success(function(response) {
     alert(response);
+}).error(function(file) {
+    alert(file);
 });
 ```
 
