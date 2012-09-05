@@ -41,17 +41,15 @@ define(function(require, exports, module) {
     // initialize
     // create input, form, iframe
     IframeUploader.prototype.setup = function() {
-        var now = new Date().getTime();
-        var iframe = document.createElement('iframe');
-        iframe.style.display = 'none'; iframe.href = '#';
-        iframe.name = 'iframe-uploader-' + now;
+        var iframeName = 'iframe-uploader-' + new Date().getTime();
+        var iframe = $('<iframe name=' + iframeName + '/>').hide();
         this.iframe = iframe;
 
         var form = document.createElement('form');
         form.method = 'post'; form.enctype = 'multipart/form-data';
         // IE use encoding
         form.encoding = 'multipart/form-data';
-        form.target = iframe.name; form.action = this.settings.action;
+        form.target = iframeName; form.action = this.settings.action;
 
         var inputs = createInputs(this.settings.data);
         for (i = 0; i < inputs.length; i++) {
@@ -112,9 +110,9 @@ define(function(require, exports, module) {
     IframeUploader.prototype.submit = function() {
         var self = this;
         $('body').append(self.iframe);
-        $(self.iframe).on('load', function() {
-            var response = $(self.iframe).contents().find('body').html();
-            $(self.iframe).off('load').remove();
+        self.iframe.on('load', function() {
+            var response = self.iframe.contents().find('body').html();
+            self.iframe.off('load').remove();
             if (!response) {
                 if (self.settings.error) self.settings.error(self.input.value);
             } else {
