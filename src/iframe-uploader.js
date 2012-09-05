@@ -25,7 +25,7 @@ define(function(require, exports, module) {
         if (options) {
             $.extend(settings, options);
         }
-        $trigger = $(settings.trigger);
+        var $trigger = $(settings.trigger);
         settings.action = settings.action || $trigger.data('action') ||
             '/upload';
         settings.name = settings.name || $trigger.data('name') || 'file';
@@ -49,6 +49,8 @@ define(function(require, exports, module) {
 
         var form = document.createElement('form');
         form.method = 'post'; form.enctype = 'multipart/form-data';
+        // IE use encoding
+        form.encoding = 'multipart/form-data';
         form.target = iframe.name; form.action = this.settings.action;
 
         var inputs = createInputs(this.settings.data);
@@ -63,17 +65,39 @@ define(function(require, exports, module) {
 
         this.input = input;
         this.form = form;
+
+        var $trigger = $(this.settings.trigger);
+        $(this.form).css({
+            position: 'absolute',
+            top: $trigger.offset().top,
+            left: $trigger.offset().left,
+            width: $trigger.outerWidth(),
+            height: $trigger.outerHeight()
+        }).appendTo('body');
+        $(this.input).css({
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            opacity: 0,
+            outline: 0,
+            width: $trigger.outerWidth() * 2,
+            height: $trigger.outerHeight() * 2
+        });
+
         return this;
     };
 
     // bind events
     IframeUploader.prototype.bind = function() {
         var self = this;
-        $(self.settings.trigger).click(function() {
-            $(self.form).css({position: 'absolute', left: '-9999px'}).
-                appendTo('body');
-            self.input.click();
-            return false;
+        var $trigger = $(self.settings.trigger);
+        $trigger.mouseenter(function() {
+            $(self.form).css({
+              top: $trigger.offset().top,
+              left: $trigger.offset().left,
+              width: $trigger.outerWidth(),
+              height: $trigger.outerHeight()
+            })
         });
         $(self.input).change(function() {
             if (!self.settings.change) return self.submit();
