@@ -48,17 +48,24 @@ define(function(require, exports, module) {
                       + 'target="' + iframeName + '" '
                       + 'action="' + this.settings.action + '" />');
 
-        var inputs = createInputs(this.settings.data);
-        this.form.append(inputs);
+        this.form.append(createInputs(this.settings.data));
 
         var input = document.createElement('input');
         input.type = 'file'; input.name = this.settings.name;
         if (this.settings.accept) input.accept = this.settings.accept;
-        this.form.append(input);
-
-        this.input = input;
+        this.input = $(input);
 
         var $trigger = $(this.settings.trigger);
+        this.input.css({
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            opacity: 0,
+            outline: 0,
+            width: $trigger.outerWidth(),
+            height: $trigger.outerHeight()
+        });
+        this.form.append(this.input);
         this.form.css({
             position: 'absolute',
             top: $trigger.offset().top,
@@ -66,15 +73,6 @@ define(function(require, exports, module) {
             width: $trigger.outerWidth(),
             height: $trigger.outerHeight()
         }).appendTo('body');
-        $(this.input).css({
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            opacity: 0,
-            outline: 0,
-            width: $trigger.outerWidth() * 2,
-            height: $trigger.outerHeight() * 2
-        });
 
         return this;
     };
@@ -91,9 +89,9 @@ define(function(require, exports, module) {
               height: $trigger.outerHeight()
             })
         });
-        $(self.input).change(function() {
+        self.input.change(function() {
             if (!self.settings.change) return self.submit();
-            var file = self.input.value;
+            var file = self.input.val();
             if (file) file = file.substr(file.lastIndexOf('\\') + 1);
             self.settings.change(file);
         });
@@ -108,7 +106,7 @@ define(function(require, exports, module) {
             var response = self.iframe.contents().find('body').html();
             self.iframe.off('load').remove();
             if (!response) {
-                if (self.settings.error) self.settings.error(self.input.value);
+                if (self.settings.error) self.settings.error(self.input.val());
             } else {
                 if (self.settings.success) self.settings.success(response);
             }
