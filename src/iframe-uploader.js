@@ -42,30 +42,24 @@ define(function(require, exports, module) {
     // create input, form, iframe
     IframeUploader.prototype.setup = function() {
         var iframeName = 'iframe-uploader-' + new Date().getTime();
-        var iframe = $('<iframe name=' + iframeName + '/>').hide();
-        this.iframe = iframe;
+        this.iframe = $('<iframe name="' + iframeName + '" />').hide();
 
-        var form = document.createElement('form');
-        form.method = 'post'; form.enctype = 'multipart/form-data';
-        // IE use encoding
-        form.encoding = 'multipart/form-data';
-        form.target = iframeName; form.action = this.settings.action;
+        this.form = $('<form method="post" enctype="multipart/form-data"'
+                      + 'target="' + iframeName + '" '
+                      + 'action="' + this.settings.action + '" />');
 
         var inputs = createInputs(this.settings.data);
-        for (i = 0; i < inputs.length; i++) {
-            form.appendChild(inputs[i]);
-        }
+        this.form.append(inputs);
 
         var input = document.createElement('input');
         input.type = 'file'; input.name = this.settings.name;
         if (this.settings.accept) input.accept = this.settings.accept;
-        form.appendChild(input);
+        this.form.append(input);
 
         this.input = input;
-        this.form = form;
 
         var $trigger = $(this.settings.trigger);
-        $(this.form).css({
+        this.form.css({
             position: 'absolute',
             top: $trigger.offset().top,
             left: $trigger.offset().left,
@@ -90,7 +84,7 @@ define(function(require, exports, module) {
         var self = this;
         var $trigger = $(self.settings.trigger);
         $trigger.mouseenter(function() {
-            $(self.form).css({
+            self.form.css({
               top: $trigger.offset().top,
               left: $trigger.offset().left,
               width: $trigger.outerWidth(),
