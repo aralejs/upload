@@ -56,15 +56,15 @@ define(function(require, exports, module) {
         this.input = $(input);
 
         var $trigger = $(this.settings.trigger);
-        this.input.css({
+        this.input.attr('hidefocus', true).css({
             position: 'absolute',
             top: 0,
             right: 0,
             opacity: 0,
             outline: 0,
-            width: $trigger.outerWidth(),
+            cursor: 'pointer',
             height: $trigger.outerHeight(),
-            fontSize: $trigger.outerHeight()
+            fontSize: Math.max(64, $trigger.outerHeight() * 5)
         });
         this.form.append(this.input);
         this.form.css({
