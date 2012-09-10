@@ -1,9 +1,12 @@
 {
     "name": "iframe-uploader",
-    "version": "0.9.1",
+    "version": "0.9.0",
     "description": "",
     "homepage": "https://lepture.github.com/iframe-uploader/",
     "author": "Hsiaoming Yang <lepture@me.com>",
+    "dependencies": {
+        "jquery": "1.7.2"
+    },
     "keywords": [
         "upload",
         "ajax upload",
@@ -17,5 +20,8 @@
     "bugs": {
         "url": "https://github.com/lepture/iframe-uploader/issues"
     },
-    "licenses": "BSD"
+    "licenses": "BSD",
+    "output": {
+        "iframe-uploader.js": "."
+    }
 }
