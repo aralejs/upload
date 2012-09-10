@@ -63,13 +63,15 @@ define(function(require, exports, module) {
             opacity: 0,
             outline: 0,
             width: $trigger.outerWidth(),
-            height: $trigger.outerHeight()
+            height: $trigger.outerHeight(),
+            fontSize: $trigger.outerHeight()
         });
         this.form.append(this.input);
         this.form.css({
             position: 'absolute',
             top: $trigger.offset().top,
             left: $trigger.offset().left,
+            overflow: 'hidden',
             width: $trigger.outerWidth(),
             height: $trigger.outerHeight()
         }).appendTo('body');
