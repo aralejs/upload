@@ -11,21 +11,23 @@ define(function(require, exports, module) {
         if (!(this instanceof IframeUploader)) {
             return new IframeUploader(options);
         }
+        if (isString(options)) options = {trigger: options};
 
         var settings = {
-            'trigger': null,
-            'name': null,
-            'action': null,
-            'data': null,
-            'accept': null,
-            'change': null,
-            'error': null,
-            'success': null
+            trigger: null,
+            name: null,
+            action: null,
+            data: null,
+            accept: null,
+            change: null,
+            error: null,
+            success: null
         };
         if (options) {
             $.extend(settings, options);
         }
         var $trigger = $(settings.trigger);
+
         settings.action = settings.action || $trigger.data('action') ||
             '/upload';
         settings.name = settings.name || $trigger.data('name') || 'file';
@@ -141,6 +143,10 @@ define(function(require, exports, module) {
 
     // Helpers
     // -------------
+
+    function isString(val) {
+        return Object.prototype.toString.call(val) === '[object String]';
+    }
 
     function createInputs(data) {
         if (!data) return [];
