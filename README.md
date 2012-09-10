@@ -81,6 +81,8 @@ data api support
 <a id="upload" data-name="image" data-action="/upload" data-data="a=a&b=b">Upload</a>
 <script>
 var uploader = new IframeUploader({'trigger': '#upload'});
+// more friendly way
+// var uploader = new IframeUploader('#upload');
 uploader.success(function(response) {
     alert(response);
 });
@@ -114,6 +116,29 @@ $('#submit').click(function() {
     uploader.submit();
 });
 ```
+
+
+## Show Progress
+
+It is impossible to show progress, but you can make a fake prgress.
+
+
+```javascript
+var uploader = new IframeUploader({
+    trigger: '#upload-icon',
+    name: 'image',
+    action: '/upload',
+    data: {'xsrf': 'hash'}
+}).change(function(filename) {
+    // before submit
+    $('#progress').text('Uploading ...');
+    this.submit();
+}).success(function(response) {
+    $('#progress').text('Success');
+    alert(response);
+});
+```
+
 
 ## Seajs Hint
 
