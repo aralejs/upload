@@ -94,10 +94,13 @@ define(function(require, exports, module) {
             })
         });
         self.input.change(function() {
-            if (!self.settings.change) return self.submit();
             var file = self.input.val();
-            if (file) file = file.substr(file.lastIndexOf('\\') + 1);
-            self.settings.change(file);
+            if (self.settings.change) {
+              if (file) file = file.substr(file.lastIndexOf('\\') + 1);
+              self.settings.change(file);
+            } else if (file) {
+              return self.submit();
+            }
         });
     };
 
