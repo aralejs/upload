@@ -1,5 +1,7 @@
 # iframe uploader
 
+---------------
+
 The fake-ajax file uploader. Seajs compatible.
 
 **Required Library**: jQuery

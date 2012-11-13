@@ -1,11 +1,8 @@
-# Author: Hsiaoming Yang <lepture@me.com>
-# Website: http://lepture.com
+build:
+	liquidluck build -v -s $(HOME)/.liquidluck-themes/arale2/settings.yml
 
-.PHONY: doc publish
+debug:
+	liquidluck server -d -s $(HOME)/.liquidluck-themes/arale2/settings.yml
 
-
-doc:
-	doki.py -l js -t default --title=iframe-uploader --github=iframe-uploader README.md > index.html
-
-publish:
-	git push origin gh-pages
+server:
+	liquidluck server -s $(HOME)/.liquidluck-themes/arale2/settings.yml
