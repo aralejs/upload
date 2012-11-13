@@ -2,6 +2,7 @@
     "name": "iframe-uploader",
     "version": "0.9.0",
     "root": "arale",
+    "tag": "utility",
     "description": "lightweight fake ajax uploader, iframe uploader.",
     "homepage": "http://aralejs.org/iframe-uploader/",
     "author": "Hsiaoming Yang <lepture@me.com>",
