@@ -13,6 +13,7 @@ define(function(require, exports, module) {
 
         var settings = {
             trigger: null,
+            zIndex: null,
             name: null,
             action: null,
             data: null,
@@ -28,6 +29,7 @@ define(function(require, exports, module) {
 
         settings.action = settings.action || $trigger.data('action') ||
             '/upload';
+        settings.zIndex = settings.zIndex || 'auto';
         settings.name = settings.name || $trigger.data('name') || 'file';
         settings.data = settings.data || parse($trigger.data('data'));
         settings.accept = settings.accept || $trigger.data('accept');
@@ -64,7 +66,8 @@ define(function(require, exports, module) {
             outline: 0,
             cursor: 'pointer',
             height: $trigger.outerHeight(),
-            fontSize: Math.max(64, $trigger.outerHeight() * 5)
+            fontSize: Math.max(64, $trigger.outerHeight() * 5),
+            zIndex: this.settings.zIndex,
         });
         this.form.append(this.input);
         this.form.css({
@@ -188,8 +191,9 @@ define(function(require, exports, module) {
         var zIndex = 0;
         for (var i = 0; i < parents.length; i++) {
             var item = parents.eq(i);
-            if (item.css('position') !== 'static') {
-                zIndex = parseInt(item.css('zIndex'), 10);
+            if (item.css('position') !== 'static'){
+                var _zIndex = parseInt(item.css('zIndex'), 10);
+                zIndex = _zIndex >= zIndex ? _zIndex : zIndex;
             }
         }
         return zIndex;
