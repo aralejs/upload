@@ -7,7 +7,7 @@
         <script type="text/javascript" src="http://seajs.org/dist/sea.js"></script>
         <script type="text/javascript">
             seajs.config({
-                alias: {'jquery': 'http://modules.seajs.org/jquery/1.7.2/jquery.js'}
+                alias: {'jquery': 'http://code.jquery.com/jquery.min.js'}
             });
         </script>
     </head>
@@ -35,7 +35,8 @@
             seajs.use(['jquery', '/src/iframe-uploader'], function($, IframeUploader) {
                 new IframeUploader({
                     trigger: '#uploader-1',
-                    action: '/'
+                    action: '/',
+                    zIndex: 100,
                 }).success(function(data) {
                     alert(data);
                 });
