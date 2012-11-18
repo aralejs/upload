@@ -3,9 +3,7 @@
 //
 
 define(function(require, exports, module) {
-    var global = this;  // window
-
-    var $ = global.jQuery || require('jquery');
+    var $ = require('jquery');
 
     function IframeUploader(options) {
         if (!(this instanceof IframeUploader)) {
