@@ -3,9 +3,7 @@
 //
 
 define(function(require, exports, module) {
-    var global = this;  // window
-
-    var $ = global.jQuery || require('jquery');
+    var $ = require('jquery');
 
     function IframeUploader(options) {
         if (!(this instanceof IframeUploader)) {
@@ -78,7 +76,8 @@ define(function(require, exports, module) {
             left: $trigger.offset().left,
             overflow: 'hidden',
             width: $trigger.outerWidth(),
-            height: $trigger.outerHeight()
+            height: $trigger.outerHeight(),
+            zIndex: findzIndex($trigger) + 10
         }).appendTo('body');
 
         return this;
@@ -185,6 +184,18 @@ define(function(require, exports, module) {
         }
 
         return ret;
+    }
+
+    function findzIndex($node) {
+        var parents = $node.parents();
+        var zIndex = 0;
+        for (var i = 0; i < parents.length; i++) {
+            var item = parents.eq(i);
+            if (item.css('position') !== 'static') {
+                zIndex = parseInt(item.css('zIndex'), 10);
+            }
+        }
+        return zIndex;
     }
 
     module.exports = IframeUploader;
