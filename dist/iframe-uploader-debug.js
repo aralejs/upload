@@ -184,7 +184,7 @@ define("arale/iframe-uploader/0.9.1/iframe-uploader-debug", ["gallery/jquery/1.7
     }
 
     function findzIndex($node) {
-        var parents = $node.parents();
+        var parents = $node.parentsUntil('body');
         var zIndex = 0;
         for (var i = 0; i < parents.length; i++) {
             var item = parents.eq(i);
