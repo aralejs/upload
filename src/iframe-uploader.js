@@ -191,8 +191,9 @@ define(function(require, exports, module) {
         var zIndex = 0;
         for (var i = 0; i < parents.length; i++) {
             var item = parents.eq(i);
-            if (item.css('position') !== 'static') {
-                zIndex = parseInt(item.css('zIndex'), 10);
+            if (item.css('position') !== 'static'){
+                var _zIndex = parseInt(item.css('zIndex'), 10);
+                zIndex = _zIndex >= zIndex ? _zIndex : zIndex;
             }
         }
         return zIndex;
