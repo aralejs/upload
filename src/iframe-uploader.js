@@ -184,7 +184,7 @@ define(function(require, exports, module) {
     }
 
     function findzIndex($node) {
-        var parents = $node.parents();
+        var parents = $node.parentsUntil('body');
         var zIndex = 0;
         for (var i = 0; i < parents.length; i++) {
             var item = parents.eq(i);
