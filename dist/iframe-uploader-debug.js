@@ -189,7 +189,7 @@ define("arale/iframe-uploader/0.9.1/iframe-uploader-debug", ["gallery/jquery/1.7
         for (var i = 0; i < parents.length; i++) {
             var item = parents.eq(i);
             if (item.css('position') !== 'static') {
-                zIndex = parseInt(item.css('zIndex'), 10);
+                zIndex = parseInt(item.css('zIndex'), 10) || zIndex;
             }
         }
         return zIndex;
