@@ -1,29 +1,28 @@
 {
-    "name": "iframe-uploader",
+    "family": "arale",
+    "name": "upload",
     "version": "0.9.1",
-    "root": "arale",
-    "tag": "utility",
-    "description": "lightweight fake ajax uploader, iframe uploader.",
-    "homepage": "http://aralejs.org/iframe-uploader/",
-    "author": "Hsiaoming Yang <lepture@me.com>",
-    "dependencies": {
-        "jquery": "gallery/jquery/1.7.2/jquery"
-    },
+    "description": "html5 uploader and iframe uploader.",
+    "homepage": "http://aralejs.org/upload/",
+    "author": "Hsiaoming Yang <me@lepture.com>",
     "keywords": [
+        "utility",
         "upload",
         "ajax upload",
         "iframe upload"
     ],
-    "main": "./src/iframe-uploader.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/aralejs/iframe-uploader"
+        "url": "https://github.com/aralejs/upload"
     },
     "bugs": {
-        "url": "https://github.com/aralejs/iframe-uploader/issues"
+        "url": "https://github.com/aralejs/upload/issues"
     },
     "licenses": "BSD",
-    "output": {
-        "iframe-uploader.js": "."
+    "spm": {
+      "alias": {
+        "jquery": "jquery"
+      },
+      "output": ["upload.js"]
     }
 }
