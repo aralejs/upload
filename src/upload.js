@@ -7,7 +7,9 @@ define(function(require, exports, module) {
     if (!(this instanceof Uploader)) {
       return new Uploader(options);
     }
-    if (isString(options)) options = {trigger: options};
+    if (isString(options)) {
+      options = {trigger: options};
+    }
 
     var settings = {
       trigger: null,
@@ -51,14 +53,14 @@ define(function(require, exports, module) {
 
     var data = this.settings.data;
     this.form.append(createInputs(data));
-    if (!window.FormData) {
-      this.form.append(createInputs({'mimetype': 'text/html'}));
-    } else {
+    if (window.FormData) {
       this._formdata = new FormData();
       for (var key in data) {
         this._formdata.append(key, data[key]);
       }
-      this._formdata.append('mimetype', 'text/json');
+      this._formdata.append('_uploader_', 'formdata');
+    } else {
+      this.form.append(createInputs({'_uploader_': 'iframe'}));
     }
 
     var input = document.createElement('input');
@@ -109,7 +111,9 @@ define(function(require, exports, module) {
       self._files = this.files;
       var file = self.input.val();
       if (self.settings.change) {
-        if (file) file = file.substr(file.lastIndexOf('\\') + 1);
+        if (file) {
+          file = file.substr(file.lastIndexOf('\\') + 1);
+        }
         self.settings.change(file);
       } else if (file) {
         return self.submit();
@@ -122,6 +126,7 @@ define(function(require, exports, module) {
   Uploader.prototype.submit = function() {
     var self = this;
     if (self._formdata && self._files) {
+      // use FormData to upload
       $.each(self._files, function(i, file) {
         self._formdata.append(self.settings.name, file);
       });
@@ -137,14 +142,19 @@ define(function(require, exports, module) {
       });
       return this;
     } else {
+      // iframe upload
       $('body').append(self.iframe);
       self.iframe.on('load', function() {
         var response = self.iframe.contents().find('body').html();
         self.iframe.off('load').remove();
         if (!response) {
-          if (self.settings.error) self.settings.error(self.input.val());
+          if (self.settings.error) {
+            self.settings.error(self.input.val());
+          }
         } else {
-          if (self.settings.success) self.settings.success(response);
+          if (self.settings.success) {
+            self.settings.success(response);
+          }
         }
       });
       self.form.submit();
@@ -155,14 +165,18 @@ define(function(require, exports, module) {
   // handle change event
   // when value in file input changed
   Uploader.prototype.change = function(callback) {
-    if (!callback) return this;
+    if (!callback) {
+      return this;
+    }
     this.settings.change = callback;
     return this;
   };
 
   // handle when upload success
   Uploader.prototype.success = function(callback) {
-    if (!callback) return this;
+    if (!callback) {
+      return this;
+    }
     this.settings.success = callback;
     return this;
   };
@@ -226,5 +240,48 @@ define(function(require, exports, module) {
     return zIndex;
   }
 
-  module.exports = Uploader;
+  function MultipleUploader(options) {
+    if (!(this instanceof MultipleUploader)) {
+      return new MultipleUploader(options);
+    }
+
+    if (isString(options)) {
+      options = {trigger: options};
+    }
+    var $trigger = $(options.trigger);
+
+    var uploaders = [];
+    $trigger.each(function(i, item) {
+      options.trigger = item;
+      uploaders.push(new Uploader(options));
+    });
+    this._uploaders = uploaders;
+  }
+  MultipleUploader.prototype.submit = function() {
+    $.each(this._uploaders, function(i, item) {
+      item.submit();
+    });
+    return this;
+  };
+  MultipleUploader.prototype.change = function(callback) {
+    $.each(this._uploaders, function(i, item) {
+      item.change(callback);
+    });
+    return this;
+  };
+  MultipleUploader.prototype.success = function(callback) {
+    $.each(this._uploaders, function(i, item) {
+      item.success(callback);
+    });
+    return this;
+  };
+  MultipleUploader.prototype.error = function(callback) {
+    $.each(this._uploaders, function(i, item) {
+      item.error(callback);
+    });
+    return this;
+  };
+  MultipleUploader.Uploader = Uploader;
+
+  module.exports = MultipleUploader;
 });
