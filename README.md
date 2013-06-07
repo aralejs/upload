@@ -1,8 +1,6 @@
-# iframe uploader
+# Upload
 
 ---------------
-
-The fake-ajax file uploader. Seajs compatible.
 
 **Required Library**: jQuery
 
@@ -38,7 +36,7 @@ Now open your browser: ``http://127.0.0.1:8888``. Have a try!
 Create a uploader:
 
 ```javascript
-var uploader = new IframeUploader({
+var uploader = new Uploader({
     trigger: '#upload-icon',
     name: 'image',
     action: '/upload',
@@ -65,7 +63,7 @@ var uploader = new IframeUploader({
 Chain style:
 
 ```javascript
-var uploader = new IframeUploader({
+var uploader = new Uploader({
     trigger: '#upload-icon',
     name: 'image',
     action: '/upload',
@@ -82,9 +80,9 @@ data api support
 ```html
 <a id="upload" data-name="image" data-action="/upload" data-data="a=a&b=b">Upload</a>
 <script>
-var uploader = new IframeUploader({'trigger': '#upload'});
+var uploader = new Uploader({'trigger': '#upload'});
 // more friendly way
-// var uploader = new IframeUploader('#upload');
+// var uploader = new Uploader('#upload');
 uploader.success(function(response) {
     alert(response);
 });
@@ -97,7 +95,7 @@ Demo in **API** section could not be controlled. When you select a file, it will
 be submitted immediately. We can broke the chain with ``change``:
 
 ```javascript
-var uploader = new IframeUploader({
+var uploader = new Uploader({
     trigger: '#upload-icon',
     name: 'image',
     action: '/upload',
@@ -126,7 +124,7 @@ It is impossible to show progress, but you can make a fake prgress.
 
 
 ```javascript
-var uploader = new IframeUploader({
+var uploader = new Uploader({
     trigger: '#upload-icon',
     name: 'image',
     action: '/upload',
@@ -147,8 +145,8 @@ var uploader = new IframeUploader({
 Load iframe uploader with seajs:
 
 ```javascript
-seajs.use(['./iframe-uploader'], function(IframeUploader) {
-    var uploader = new IframeUploader({
+seajs.use(['./upload'], function(Uploader) {
+    var uploader = new Uploader({
     });
 });
 ```

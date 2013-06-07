@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-  var $ = require('jquery');
+  var $ = require('$');
 
   var iframeCount = 0;
 
@@ -105,7 +105,7 @@ define(function(require, exports, module) {
         left: $trigger.offset().left,
         width: $trigger.outerWidth(),
         height: $trigger.outerHeight()
-      })
+      });
     });
     self.input.change(function() {
       self._files = this.files;
