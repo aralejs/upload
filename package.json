@@ -1,7 +1,7 @@
 {
   "family": "arale",
   "name": "upload",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "html5 uploader and iframe uploader.",
   "homepage": "http://aralejs.org/upload/",
   "author": "Hsiaoming Yang <me@lepture.com>",
@@ -26,6 +26,8 @@
     "alias": {
       "$": "$"
     },
-    "output": ["upload.js"]
+    "output": [
+      "upload.js"
+    ]
   }
 }

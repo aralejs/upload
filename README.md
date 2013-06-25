@@ -141,3 +141,9 @@ seajs.use('upload', function(Uploader) {
     });
 });
 ```
+
+## Changelog
+
+**2013-06-25** `1.0.0`
+
+Combine iframe and html5 uploader.
