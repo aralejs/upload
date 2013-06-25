@@ -2,33 +2,24 @@
 
 ---------------
 
-**Required Library**: jQuery
+iframe and html5 uploader.
 
 
 ## DEMO
 
-The server script is written in Python. If you are not familiar with Python,
-but you are on Linux or Mac, that could be easy.
-
-First may sure you have installed [tornado](http://tornadoweb.org):
+Install requirements:
 
 ```
-pip install tornado
+$ npm install
 ```
 
-If pip doesn't work, try:
+Start server with:
 
 ```
-easy_install tornado
+$ node server.js
 ```
 
-### Start server with:
-
-```
-python server.py
-```
-
-Now open your browser: ``http://127.0.0.1:8888``. Have a try!
+Now open your browser: http://127.0.0.1:8000/demo.html
 
 
 ## API
@@ -142,10 +133,10 @@ var uploader = new Uploader({
 
 ## Seajs Hint
 
-Load iframe uploader with seajs:
+Load uploader with seajs:
 
 ```javascript
-seajs.use(['./upload'], function(Uploader) {
+seajs.use('upload', function(Uploader) {
     var uploader = new Uploader({
     });
 });
