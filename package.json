@@ -5,6 +5,9 @@
   "description": "html5 uploader and iframe uploader.",
   "homepage": "http://aralejs.org/upload/",
   "author": "Hsiaoming Yang <me@lepture.com>",
+  "maintainers": [
+    "南伯 <me@lepture.com>"
+  ],
   "keywords": [
     "utility",
     "upload",
