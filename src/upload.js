@@ -107,6 +107,11 @@ define(function(require, exports, module) {
         height: $trigger.outerHeight()
       });
     });
+    self.bindInput();
+  };
+
+  Uploader.prototype.bindInput = function() {
+    var self = this;
     self.input.change(function() {
       self._files = this.files;
       var file = self.input.val();
@@ -126,16 +131,18 @@ define(function(require, exports, module) {
   Uploader.prototype.submit = function() {
     var self = this;
     if (self._formdata && self._files) {
+      // clone a new FormData
+      var form = new FormData(self._formdata);
       // use FormData to upload
       $.each(self._files, function(i, file) {
-        self._formdata.append(self.settings.name, file);
+        form.append(self.settings.name, file);
       });
       $.ajax({
         url: self.settings.action,
         type: 'post',
         processData: false,
         contentType: false,
-        data: self._formdata,
+        data: form,
         context: this,
         success: self.settings.success,
         error: self.settings.error
@@ -166,10 +173,11 @@ define(function(require, exports, module) {
     //replace the input element, or the same file can not to be uploaded
     var newInput = this.input.clone();
     this.input.before(newInput);
+    this.input.off('change');
     this.input.remove();
     this.input = newInput;
-    this.bind();
-  }
+    this.bindInput();
+  };
 
   // handle change event
   // when value in file input changed
