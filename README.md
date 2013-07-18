@@ -144,6 +144,11 @@ seajs.use('upload', function(Uploader) {
 
 ## Changelog
 
+**2013-07-18** `1.0.1`
+
+1. Support choosing the same file for uploader
+2. Fix memory leaks for FormData
+
 **2013-06-25** `1.0.0`
 
 Combine iframe and html5 uploader.

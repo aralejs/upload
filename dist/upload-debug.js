@@ -1,4 +1,4 @@
-define("arale/upload/1.0.0/upload-debug", [ "$-debug" ], function(require, exports, module) {
+define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
     var iframeCount = 0;
     function Uploader(options) {
@@ -95,6 +95,10 @@ define("arale/upload/1.0.0/upload-debug", [ "$-debug" ], function(require, expor
                 height: $trigger.outerHeight()
             });
         });
+        self.bindInput();
+    };
+    Uploader.prototype.bindInput = function() {
+        var self = this;
         self.input.change(function() {
             self._files = this.files;
             var file = self.input.val();
@@ -113,16 +117,18 @@ define("arale/upload/1.0.0/upload-debug", [ "$-debug" ], function(require, expor
     Uploader.prototype.submit = function() {
         var self = this;
         if (self._formdata && self._files) {
+            // clone a new FormData
+            var form = new FormData(self._formdata);
             // use FormData to upload
             $.each(self._files, function(i, file) {
-                self._formdata.append(self.settings.name, file);
+                form.append(self.settings.name, file);
             });
             $.ajax({
                 url: self.settings.action,
                 type: "post",
                 processData: false,
                 contentType: false,
-                data: self._formdata,
+                data: form,
                 context: this,
                 success: self.settings.success,
                 error: self.settings.error
@@ -148,6 +154,15 @@ define("arale/upload/1.0.0/upload-debug", [ "$-debug" ], function(require, expor
         }
         return this;
     };
+    Uploader.prototype.refreshInput = function() {
+        //replace the input element, or the same file can not to be uploaded
+        var newInput = this.input.clone();
+        this.input.before(newInput);
+        this.input.off("change");
+        this.input.remove();
+        this.input = newInput;
+        this.bindInput();
+    };
     // handle change event
     // when value in file input changed
     Uploader.prototype.change = function(callback) {
@@ -159,16 +174,22 @@ define("arale/upload/1.0.0/upload-debug", [ "$-debug" ], function(require, expor
     };
     // handle when upload success
     Uploader.prototype.success = function(callback) {
-        if (!callback) {
-            return this;
-        }
-        this.settings.success = callback;
+        this.settings.success = function(response) {
+            this.refreshInput();
+            if (callback) {
+                callback(response);
+            }
+        };
         return this;
     };
     // handle when upload success
     Uploader.prototype.error = function(callback) {
-        if (!callback) return this;
-        this.settings.error = callback;
+        this.settings.error = function(fileName) {
+            if (callback) {
+                this.refreshInput();
+                callback(response);
+            }
+        };
         return this;
     };
     // Helpers
