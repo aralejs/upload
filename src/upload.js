@@ -162,6 +162,15 @@ define(function(require, exports, module) {
     return this;
   };
 
+  Uploader.prototype.refreshInput = function() {
+    //replace the input element, or the same file can not to be uploaded
+    var newInput = this.input.clone();
+    this.input.before(newInput);
+    this.input.remove();
+    this.input = newInput;
+    this.bind();
+  }
+
   // handle change event
   // when value in file input changed
   Uploader.prototype.change = function(callback) {
@@ -174,17 +183,23 @@ define(function(require, exports, module) {
 
   // handle when upload success
   Uploader.prototype.success = function(callback) {
-    if (!callback) {
-      return this;
-    }
-    this.settings.success = callback;
+    this.settings.success = function(response) {
+      this.refreshInput();
+      if (callback) {
+        callback(response);
+      }
+    };
     return this;
   };
 
   // handle when upload success
   Uploader.prototype.error = function(callback) {
-    if (!callback) return this;
-    this.settings.error = callback;
+    this.settings.error = function(fileName) {
+      if (callback) {
+        this.refreshInput();
+        callback(response);
+      }
+    };
     return this;
   };
 
