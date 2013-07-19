@@ -54,11 +54,7 @@ define(function(require, exports, module) {
     var data = this.settings.data;
     this.form.append(createInputs(data));
     if (window.FormData) {
-      this._formdata = new FormData();
-      for (var key in data) {
-        this._formdata.append(key, data[key]);
-      }
-      this._formdata.append('_uploader_', 'formdata');
+      this.form.append(createInputs({'_uploader_': 'formdata'}));
     } else {
       this.form.append(createInputs({'_uploader_': 'iframe'}));
     }
@@ -130,9 +126,9 @@ define(function(require, exports, module) {
   // prepare for submiting form
   Uploader.prototype.submit = function() {
     var self = this;
-    if (self._formdata && self._files) {
-      // clone a new FormData
-      var form = new FormData(self._formdata);
+    if (window.FormData && self._files) {
+      // build a FormData
+      var form = new FormData(self.form.get(0));
       // use FormData to upload
       $.each(self._files, function(i, file) {
         form.append(self.settings.name, file);
