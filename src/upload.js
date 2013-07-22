@@ -187,20 +187,23 @@ define(function(require, exports, module) {
 
   // handle when upload success
   Uploader.prototype.success = function(callback) {
+    var me = this;
     this.settings.success = function(response) {
-      this.refreshInput();
+      me.refreshInput();
       if (callback) {
         callback(response);
       }
     };
+
     return this;
   };
 
   // handle when upload success
   Uploader.prototype.error = function(callback) {
+    var me = this;
     this.settings.error = function(fileName) {
       if (callback) {
-        this.refreshInput();
+        me.refreshInput();
         callback(response);
       }
     };
