@@ -19,6 +19,7 @@ define(function(require, exports, module) {
       accept: null,
       change: null,
       error: null,
+      multiple: true,
       success: null
     };
     if (options) {
@@ -64,6 +65,9 @@ define(function(require, exports, module) {
     input.name = this.settings.name;
     if (this.settings.accept) {
       input.accept = this.settings.accept;
+    }
+    if (this.settings.multiple) {
+      input.multiple = true;
     }
     this.input = $(input);
 
@@ -130,9 +134,7 @@ define(function(require, exports, module) {
       // build a FormData
       var form = new FormData(self.form.get(0));
       // use FormData to upload
-      $.each(self._files, function(i, file) {
-        form.append(self.settings.name, file);
-      });
+      form.append(self.settings.name, self._files);
       $.ajax({
         url: self.settings.action,
         type: 'post',
