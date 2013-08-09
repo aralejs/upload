@@ -40,4 +40,5 @@ var server = http.createServer(function(req, res) {
 
 
 });
-server.listen(8000)
+console.log('View demo at http://localhost:8000/demo.html');
+server.listen(8000);
