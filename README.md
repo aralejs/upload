@@ -54,7 +54,7 @@ name 即为 `<input name="{{name}}">` 的值，即上传文件时对应的 name�
 
 ### action `url`
 
-action 为 `<form action="{{action}}"> 的值，表单提交的地址。
+action 为 `<form action="{{action}}">` 的值，表单提交的地址。
 
 ### accept `string`
 
