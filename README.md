@@ -5,6 +5,8 @@
 iframe and html5 uploader.
 
 
+<span style="font-size:120px;line-height:0.4;color:rgb(255, 140, 42);font-family:Menlo;">⇪</span>
+
 ## 演示
 
 查看演示，你需要 clone 一份代码：
@@ -77,7 +79,7 @@ action 为 `<form action="{{action}}"> 的值，表单提交的地址。
 
 ## Methods
 
-Chain style:
+链式调用:
 
 ```javascript
 var uploader = new Uploader({
