@@ -118,9 +118,10 @@ define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, expor
             // build a FormData
             var form = new FormData(self.form.get(0));
             // use FormData to upload
-            $.each(self._files, function(i, file) {
-                form.append(self.settings.name, file);
-            });
+            //$.each(self._files, function(i, file) {
+                //form.append(self.settings.name, file);
+                form.append(self.settings.name, self._files);
+            //});
             $.ajax({
                 url: self.settings.action,
                 type: "post",
