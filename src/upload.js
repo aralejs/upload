@@ -203,7 +203,7 @@ define(function(require, exports, module) {
   // handle when upload success
   Uploader.prototype.error = function(callback) {
     var me = this;
-    this.settings.error = function(fileName) {
+    this.settings.error = function(response) {
       if (callback) {
         me.refreshInput();
         callback(response);
