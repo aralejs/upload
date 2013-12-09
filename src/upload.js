@@ -68,6 +68,7 @@ define(function(require, exports, module) {
     }
     if (this.settings.multiple) {
       input.multiple = true;
+      input.setAttribute('multiple', 'multiple');
     }
     this.input = $(input);
 
@@ -119,7 +120,7 @@ define(function(require, exports, module) {
         if (file) {
           file = file.substr(file.lastIndexOf('\\') + 1);
         }
-        self.settings.change(file);
+        self.settings.change(file, self._files);
       } else if (file) {
         return self.submit();
       }

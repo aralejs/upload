@@ -172,6 +172,11 @@ seajs.use('upload', function(Uploader) {
 
 ## Changelog
 
+**2013-12-09** `1.0.2`
+
+1. change event add filesObj at second argument.
+2. fix multiple attribute.
+
 **2013-07-18** `1.0.1`
 
 1. Support choosing the same file for uploader

@@ -1,4 +1,4 @@
-define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, exports, module) {
+define("arale/upload/1.0.2/upload-debug", [ "$-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
     var iframeCount = 0;
     function Uploader(options) {
@@ -18,6 +18,7 @@ define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, expor
             accept: null,
             change: null,
             error: null,
+            multiple: true,
             success: null
         };
         if (options) {
@@ -56,6 +57,10 @@ define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, expor
         input.name = this.settings.name;
         if (this.settings.accept) {
             input.accept = this.settings.accept;
+        }
+        if (this.settings.multiple) {
+            input.multiple = true;
+            input.setAttribute("multiple", "multiple");
         }
         this.input = $(input);
         var $trigger = $(this.settings.trigger);
@@ -104,7 +109,7 @@ define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, expor
                 if (file) {
                     file = file.substr(file.lastIndexOf("\\") + 1);
                 }
-                self.settings.change(file);
+                self.settings.change(file, self._files);
             } else if (file) {
                 return self.submit();
             }
@@ -118,10 +123,7 @@ define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, expor
             // build a FormData
             var form = new FormData(self.form.get(0));
             // use FormData to upload
-            //$.each(self._files, function(i, file) {
-                //form.append(self.settings.name, file);
-                form.append(self.settings.name, self._files);
-            //});
+            form.append(self.settings.name, self._files);
             $.ajax({
                 url: self.settings.action,
                 type: "post",
@@ -185,7 +187,7 @@ define("arale/upload/1.0.1/upload-debug", [ "$-debug" ], function(require, expor
     // handle when upload success
     Uploader.prototype.error = function(callback) {
         var me = this;
-        this.settings.error = function(fileName) {
+        this.settings.error = function(response) {
             if (callback) {
                 me.refreshInput();
                 callback(response);
