@@ -1,4 +1,4 @@
-define("arale/upload/1.0.2/upload-debug", [ "$-debug" ], function(require, exports, module) {
+define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
     var iframeCount = 0;
     function Uploader(options) {

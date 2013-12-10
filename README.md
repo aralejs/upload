@@ -182,7 +182,7 @@ seajs.use('upload', function(Uploader) {
 
 ## Changelog
 
-**2013-12-09** `1.0.2`
+**2013-12-09** `1.1.0`
 
 1. Add upload progress for html5 uploader
 2. change event add filesObj at second argument.
