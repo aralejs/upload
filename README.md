@@ -182,11 +182,12 @@ seajs.use('upload', function(Uploader) {
 
 ## Changelog
 
-**2013-12-09** `1.1.0`
+**2013-12-10** `1.1.0`
 
 1. Add upload progress for html5 uploader
 2. change event add filesObj at second argument.
 3. fix multiple attribute.
+4. fix this in change function
 
 **2013-07-18** `1.0.1`
 

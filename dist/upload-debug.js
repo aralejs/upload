@@ -109,7 +109,7 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
                 if (file) {
                     file = file.substr(file.lastIndexOf("\\") + 1);
                 }
-                self.settings.change(file, self._files);
+                self.settings.change.call(self, file, self._files);
             } else if (file) {
                 return self.submit();
             }

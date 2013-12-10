@@ -120,7 +120,7 @@ define(function(require, exports, module) {
         if (file) {
           file = file.substr(file.lastIndexOf('\\') + 1);
         }
-        self.settings.change(file, self._files);
+        self.settings.change.call(self, file, self._files);
       } else if (file) {
         return self.submit();
       }
