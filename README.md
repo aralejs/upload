@@ -126,8 +126,10 @@ var uploader = new Uploader({
     name: 'image',
     action: '/upload',
     data: {'xsrf': 'hash'}
-}).change(function(filename) {
-    alert('you are selecting ' + filename);
+}).change(function(files) {
+    for (var i=0; i<files.length; i++) {
+        console.log('you are selecting ' + files[i].name + ' Size: ' + files[i].size);
+    }
     // Default behavior of change is
     // this.submit();
 }).success(function(response) {
@@ -158,7 +160,7 @@ var uploader = new Uploader({
     progress: function(e, position, total, percent) {
       $('#progress').text('Uploading ... ' + percent + '%');
     }
-}).change(function(filename) {
+}).change(function(files) {
     // before submit
     $('#progress').text('Uploading ...');
     this.submit();
@@ -185,7 +187,7 @@ seajs.use('upload', function(Uploader) {
 **2013-12-10** `1.1.0`
 
 1. Add upload progress for html5 uploader
-2. change event add filesObj at second argument.
+2. change function argument change to a files list.
 3. fix multiple attribute.
 4. fix this in change function
 
