@@ -36,6 +36,9 @@ var uploader = new Uploader({
     },
     success: function(response) {
         alert(response);
+    },
+    progress: function(event, position, total, percent) {
+        console.log(percent);
     }
 });
 ```
@@ -75,6 +78,10 @@ action 为 `<form action="{{action}}">` 的值，表单提交的地址。
 ### success `function`
 
 上传成功的回调函数。
+
+### progress `function`
+
+上传的进度回调，不支持 IE9-。回调的参数分别为 ajaxEvent, 当前上传字节，总字节和进度百分比。
 
 
 ## Methods
@@ -147,7 +154,10 @@ var uploader = new Uploader({
     trigger: '#upload-icon',
     name: 'image',
     action: '/upload',
-    data: {'xsrf': 'hash'}
+    data: {'xsrf': 'hash'},
+    progress: function(e, position, total, percent) {
+      $('#progress').text('Uploading ... ' + percent + '%');
+    }
 }).change(function(filename) {
     // before submit
     $('#progress').text('Uploading ...');
@@ -174,8 +184,9 @@ seajs.use('upload', function(Uploader) {
 
 **2013-12-09** `1.0.2`
 
-1. change event add filesObj at second argument.
-2. fix multiple attribute.
+1. Add upload progress for html5 uploader
+2. change event add filesObj at second argument.
+3. fix multiple attribute.
 
 **2013-07-18** `1.0.1`
 

@@ -124,12 +124,32 @@ define("arale/upload/1.0.2/upload-debug", [ "$-debug" ], function(require, expor
             var form = new FormData(self.form.get(0));
             // use FormData to upload
             form.append(self.settings.name, self._files);
+            var optionXhr;
+            if (self.settings.progress) {
+                optionXhr = function() {
+                    var xhr = $.ajaxSettings.xhr();
+                    if (xhr.upload) {
+                        xhr.upload.addEventListener("progress", function(event) {
+                            var percent = 0;
+                            var position = event.loaded || event.position;
+                            /*event.position is deprecated*/
+                            var total = event.total;
+                            if (event.lengthComputable) {
+                                percent = Math.ceil(position / total * 100);
+                            }
+                            self.settings.progress(event, position, total, percent);
+                        }, false);
+                    }
+                    return xhr;
+                };
+            }
             $.ajax({
                 url: self.settings.action,
                 type: "post",
                 processData: false,
                 contentType: false,
                 data: form,
+                xhr: optionXhr,
                 context: this,
                 success: self.settings.success,
                 error: self.settings.error

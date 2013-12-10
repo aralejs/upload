@@ -42,7 +42,10 @@
             seajs.use(['$', '/src/upload'], function($, Uploader) {
                 new Uploader({
                     trigger: '#uploader-1',
-                    action: '/'
+                    action: '/',
+                    progress: function() {
+                        console.log(arguments);
+                    }
                 }).success(function(data) {
                     alert(data);
                 });
