@@ -37,7 +37,7 @@ var uploader = new Uploader({
     success: function(response) {
         alert(response);
     },
-    progress: function(event, position, total, percent) {
+    progress: function(event, position, total, percent, files) {
         console.log(percent);
     }
 });
@@ -81,7 +81,7 @@ action 为 `<form action="{{action}}">` 的值，表单提交的地址。
 
 ### progress `function`
 
-上传的进度回调，不支持 IE9-。回调的参数分别为 ajaxEvent, 当前上传字节，总字节和进度百分比。
+上传的进度回调，不支持 IE9-。回调的参数分别为 ajaxEvent, 当前上传字节，总字节，进度百分比和当前文件列表。
 
 
 ## Methods
@@ -157,7 +157,7 @@ var uploader = new Uploader({
     name: 'image',
     action: '/upload',
     data: {'xsrf': 'hash'},
-    progress: function(e, position, total, percent) {
+    progress: function(e, position, total, percent, files) {
       $('#progress').text('Uploading ... ' + percent + '%');
     }
 }).change(function(files) {

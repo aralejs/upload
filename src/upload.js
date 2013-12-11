@@ -149,7 +149,7 @@ define(function(require, exports, module) {
               if (event.lengthComputable) {
                   percent = Math.ceil(position / total * 100);
               }
-              self.settings.progress(event, position, total, percent);
+              self.settings.progress(event, position, total, percent, self._files);
             }, false);
           }
           return xhr;
