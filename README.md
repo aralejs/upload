@@ -190,6 +190,7 @@ seajs.use('upload', function(Uploader) {
 2. change function argument change to a files list.
 3. fix multiple attribute.
 4. fix this in change function
+5. fix FileList object in ie 9-
 
 **2013-07-18** `1.0.1`
 

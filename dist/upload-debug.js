@@ -102,8 +102,12 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
     };
     Uploader.prototype.bindInput = function() {
         var self = this;
-        self.input.change(function() {
-            self._files = this.files;
+        self.input.change(function(e) {
+            // ie9 don't support FileList Object
+            // http://stackoverflow.com/questions/12830058/ie8-input-type-file-get-files
+            self._files = this.files || [ {
+                name: e.target.value
+            } ];
             var file = self.input.val();
             if (self.settings.change) {
                 if (file) {
@@ -137,7 +141,7 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
                             if (event.lengthComputable) {
                                 percent = Math.ceil(position / total * 100);
                             }
-                            self.settings.progress(event, position, total, percent);
+                            self.settings.progress(event, position, total, percent, self._files);
                         }, false);
                     }
                     return xhr;

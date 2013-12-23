@@ -113,8 +113,12 @@ define(function(require, exports, module) {
 
   Uploader.prototype.bindInput = function() {
     var self = this;
-    self.input.change(function() {
-      self._files = this.files;
+    self.input.change(function(e) {
+      // ie9 don't support FileList Object
+      // http://stackoverflow.com/questions/12830058/ie8-input-type-file-get-files
+      self._files = this.files || [{
+        name: e.target.value
+      }];
       var file = self.input.val();
       if (self.settings.change) {
         if (file) {
