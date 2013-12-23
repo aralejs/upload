@@ -200,3 +200,7 @@ seajs.use('upload', function(Uploader) {
 **2013-06-25** `1.0.0`
 
 Combine iframe and html5 uploader.
+
+## IE hint
+
+https://github.com/blueimp/jQuery-File-Upload/issues/1795
