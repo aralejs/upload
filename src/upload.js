@@ -121,9 +121,6 @@ define(function(require, exports, module) {
       }];
       var file = self.input.val();
       if (self.settings.change) {
-        if (file) {
-          file = file.substr(file.lastIndexOf('\\') + 1);
-        }
         self.settings.change.call(self, self._files);
       } else if (file) {
         return self.submit();

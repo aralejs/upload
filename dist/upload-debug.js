@@ -40,7 +40,7 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
         var iframeName = "iframe-uploader-" + iframeCount;
         this.iframe = $('<iframe name="' + iframeName + '" />').hide();
         iframeCount += 1;
-        this.form = $('<form method="post" enctype="multipart/form-data"' + 'target="' + iframeName + '" ' + 'action="' + this.settings.action + '" />');
+        this.form = $('<form method="post" enctype="multipart/form-data" content-type="text/html"' + 'target="' + iframeName + '" ' + 'action="' + this.settings.action + '" />');
         var data = this.settings.data;
         this.form.append(createInputs(data));
         if (window.FormData) {
@@ -110,9 +110,6 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
             } ];
             var file = self.input.val();
             if (self.settings.change) {
-                if (file) {
-                    file = file.substr(file.lastIndexOf("\\") + 1);
-                }
                 self.settings.change.call(self, self._files);
             } else if (file) {
                 return self.submit();
