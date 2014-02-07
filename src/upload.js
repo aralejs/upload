@@ -27,9 +27,8 @@ define(function(require, exports, module) {
     }
     var $trigger = $(settings.trigger);
 
-    settings.action = settings.action || $trigger.data('action') ||
-      '/upload';
-    settings.name = settings.name || $trigger.data('name') || 'file';
+    settings.action = settings.action || $trigger.data('action') || '/upload';
+    settings.name = settings.name || $trigger.attr('name') || $trigger.data('name') || 'file';
     settings.data = settings.data || parse($trigger.data('data'));
     settings.accept = settings.accept || $trigger.data('accept');
     settings.success = settings.success || $trigger.data('success');
@@ -233,6 +232,16 @@ define(function(require, exports, module) {
     };
     return this;
   };
+  
+  // enable
+  Uploader.prototype.enable = function(){
+    this.input.prop('disabled', false);
+  };
+
+  // disable
+  Uploader.prototype.disable = function(){
+    this.input.prop('disabled', true);
+  };
 
   // Helpers
   // -------------
@@ -324,6 +333,18 @@ define(function(require, exports, module) {
   MultipleUploader.prototype.error = function(callback) {
     $.each(this._uploaders, function(i, item) {
       item.error(callback);
+    });
+    return this;
+  };
+  MultipleUploader.prototype.enable = function (){
+    $.each(this._uploaders, function (i, item){
+      item.enable();
+    });
+    return this;
+  };
+  MultipleUploader.prototype.disable = function (){
+    $.each(this._uploaders, function (i, item){
+      item.disable();
     });
     return this;
   };
