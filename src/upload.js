@@ -237,11 +237,13 @@ define(function(require, exports, module) {
   // enable
   Uploader.prototype.enable = function(){
     this.input.prop('disabled', false);
+    this.input.css('cursor', 'pointer');
   };
 
   // disable
   Uploader.prototype.disable = function(){
     this.input.prop('disabled', true);
+    this.input.css('cursor', 'not-allowed');
   };
 
   // Helpers
