@@ -1,6 +1,5 @@
 define(function(require, exports, module) {
   var $ = require('$');
-
   var iframeCount = 0;
 
   function Uploader(options) {
@@ -41,15 +40,13 @@ define(function(require, exports, module) {
   // initialize
   // create input, form, iframe
   Uploader.prototype.setup = function() {
-    var iframeName = 'iframe-uploader-' + iframeCount;
-    this.iframe = $('<iframe name="' + iframeName + '" />').hide();
-    iframeCount += 1;
-
     this.form = $(
       '<form method="post" enctype="multipart/form-data"'
-      + 'target="' + iframeName + '" '
-      + 'action="' + this.settings.action + '" />'
+      + 'target="" action="' + this.settings.action + '" />'
     );
+
+    this.iframe = newIframe();
+    this.form.attr('target', this.iframe.attr('name'));
 
     var data = this.settings.data;
     this.form.append(createInputs(data));
@@ -171,10 +168,12 @@ define(function(require, exports, module) {
       return this;
     } else {
       // iframe upload
+      self.iframe = newIframe();
+      self.form.attr('target', self.iframe.attr('name'));
       $('body').append(self.iframe);
-      self.iframe.on('load', function() {
-        var response = self.iframe.contents().find('body').html();
-        self.iframe.off('load').remove();
+      self.iframe.one('load', function() {
+        var response = $(this).contents().find('body').html();
+        $(this).remove();
         if (!response) {
           if (self.settings.error) {
             self.settings.error(self.input.val());
@@ -234,7 +233,7 @@ define(function(require, exports, module) {
     };
     return this;
   };
-  
+
   // enable
   Uploader.prototype.enable = function(){
     this.input.prop('disabled', false);
@@ -295,6 +294,13 @@ define(function(require, exports, module) {
       }
     }
     return zIndex;
+  }
+
+  function newIframe() {
+    var iframeName = 'iframe-uploader-' + iframeCount;
+    var iframe = $('<iframe name="' + iframeName + '" />').hide();
+    iframeCount += 1;
+    return iframe;
   }
 
   function MultipleUploader(options) {
