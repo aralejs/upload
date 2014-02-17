@@ -139,6 +139,8 @@ define(function(require, exports, module) {
 
       var optionXhr;
       if (self.settings.progress) {
+        // fix the progress target file
+        var files = self._files;
         optionXhr = function() {
           var xhr = $.ajaxSettings.xhr();
           if (xhr.upload) {
@@ -149,7 +151,7 @@ define(function(require, exports, module) {
               if (event.lengthComputable) {
                   percent = Math.ceil(position / total * 100);
               }
-              self.settings.progress(event, position, total, percent, self._files);
+              self.settings.progress(event, position, total, percent, files);
             }, false);
           }
           return xhr;
