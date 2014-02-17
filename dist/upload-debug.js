@@ -1,4 +1,4 @@
-define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, exports, module) {
+define("arale/upload/1.1.1/upload-debug", [ "$-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
     var iframeCount = 0;
     function Uploader(options) {
@@ -26,7 +26,7 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
         }
         var $trigger = $(settings.trigger);
         settings.action = settings.action || $trigger.data("action") || "/upload";
-        settings.name = settings.name || $trigger.data("name") || "file";
+        settings.name = settings.name || $trigger.attr("name") || $trigger.data("name") || "file";
         settings.data = settings.data || parse($trigger.data("data"));
         settings.accept = settings.accept || $trigger.data("accept");
         settings.success = settings.success || $trigger.data("success");
@@ -37,10 +37,9 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
     // initialize
     // create input, form, iframe
     Uploader.prototype.setup = function() {
-        var iframeName = "iframe-uploader-" + iframeCount;
-        this.iframe = $('<iframe name="' + iframeName + '" />').hide();
-        iframeCount += 1;
-        this.form = $('<form method="post" enctype="multipart/form-data"' + 'target="' + iframeName + '" ' + 'action="' + this.settings.action + '" />');
+        this.form = $('<form method="post" enctype="multipart/form-data"' + 'target="" action="' + this.settings.action + '" />');
+        this.iframe = newIframe();
+        this.form.attr("target", this.iframe.attr("name"));
         var data = this.settings.data;
         this.form.append(createInputs(data));
         if (window.FormData) {
@@ -127,6 +126,8 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
             form.append(self.settings.name, self._files);
             var optionXhr;
             if (self.settings.progress) {
+                // fix the progress target file
+                var files = self._files;
                 optionXhr = function() {
                     var xhr = $.ajaxSettings.xhr();
                     if (xhr.upload) {
@@ -138,7 +139,7 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
                             if (event.lengthComputable) {
                                 percent = Math.ceil(position / total * 100);
                             }
-                            self.settings.progress(event, position, total, percent, self._files);
+                            self.settings.progress(event, position, total, percent, files);
                         }, false);
                     }
                     return xhr;
@@ -158,10 +159,12 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
             return this;
         } else {
             // iframe upload
+            self.iframe = newIframe();
+            self.form.attr("target", self.iframe.attr("name"));
             $("body").append(self.iframe);
-            self.iframe.on("load", function() {
-                var response = self.iframe.contents().find("body").html();
-                self.iframe.off("load").remove();
+            self.iframe.one("load", function() {
+                var response = $(this).contents().find("body").html();
+                $(this).remove();
                 if (!response) {
                     if (self.settings.error) {
                         self.settings.error(self.input.val());
@@ -216,6 +219,14 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
         };
         return this;
     };
+    // enable
+    Uploader.prototype.enable = function() {
+        this.input.prop("disabled", false);
+    };
+    // disable
+    Uploader.prototype.disable = function() {
+        this.input.prop("disabled", true);
+    };
     // Helpers
     // -------------
     function isString(val) {
@@ -259,6 +270,12 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
         }
         return zIndex;
     }
+    function newIframe() {
+        var iframeName = "iframe-uploader-" + iframeCount;
+        var iframe = $('<iframe name="' + iframeName + '" />').hide();
+        iframeCount += 1;
+        return iframe;
+    }
     function MultipleUploader(options) {
         if (!(this instanceof MultipleUploader)) {
             return new MultipleUploader(options);
@@ -297,6 +314,18 @@ define("arale/upload/1.1.0/upload-debug", [ "$-debug" ], function(require, expor
     MultipleUploader.prototype.error = function(callback) {
         $.each(this._uploaders, function(i, item) {
             item.error(callback);
+        });
+        return this;
+    };
+    MultipleUploader.prototype.enable = function() {
+        $.each(this._uploaders, function(i, item) {
+            item.enable();
+        });
+        return this;
+    };
+    MultipleUploader.prototype.disable = function() {
+        $.each(this._uploaders, function(i, item) {
+            item.disable();
         });
         return this;
     };
