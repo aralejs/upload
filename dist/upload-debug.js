@@ -163,6 +163,10 @@ define("arale/upload/1.1.1/upload-debug", [ "$-debug" ], function(require, expor
             self.form.attr("target", self.iframe.attr("name"));
             $("body").append(self.iframe);
             self.iframe.one("load", function() {
+                // https://github.com/blueimp/jQuery-File-Upload/blob/9.5.6/js/jquery.iframe-transport.js#L102
+                // Fix for IE endless progress bar activity bug
+                // (happens on form submits to iframe targets):
+                $('<iframe src="javascript:false;"></iframe>').appendTo(self.form).remove();
                 var response = $(this).contents().find("body").html();
                 $(this).remove();
                 if (!response) {
