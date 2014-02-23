@@ -8,6 +8,8 @@
 
 `fixed` #28 修复连续上传多个文件时，在 IE 下 iframe.contents() 调用报错的问题。
 
+`fixed` 修复在 IE 下浏览器上传后仍然处于 loading 状态的[问题](https://github.com/blueimp/jQuery-File-Upload/blob/9.5.6/js/jquery.iframe-transport.js#L102)
+
 ## 1.1.0
 
 `improved` [添加进度](https://github.com/aralejs/upload/issues/23)
