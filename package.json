@@ -1,13 +1,12 @@
 {
-  "family": "arale",
-  "name": "upload",
-  "version": "1.1.1",
+  "name": "arale-upload",
+  "version": "1.2.0",
   "description": "html5 uploader and iframe uploader.",
   "homepage": "http://aralejs.org/upload/",
   "author": "Hsiaoming Yang <me@lepture.com>",
   "maintainers": [
     "bunny090201 <tsjxyz@gmail.com>",
-    "南伯 <me@lepture.com>"
+    "lepture <me@lepture.com>"
   ],
   "keywords": [
     "utility",
@@ -27,11 +26,13 @@
   },
   "licenses": "BSD",
   "spm": {
-    "alias": {
-      "$": "$"
+    "main": "index.js",
+    "dependencies": {
+      "jquery": "1.7.2"
     },
-    "output": [
-      "upload.js"
-    ]
+    "devDependencies": {
+      "expect.js": "0.3.1"
+    },
+    "buildArgs": "--ignore jquery"
   }
 }
