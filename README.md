@@ -2,6 +2,8 @@
 
 ---------------
 
+[![spm package](http://spmjs.io/badge/arale-upload)](http://spmjs.io/package/arale-upload)
+
 iframe and html5 uploader.
 
 
