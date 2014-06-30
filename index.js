@@ -177,7 +177,12 @@ Uploader.prototype.submit = function() {
       $('<iframe src="javascript:false;"></iframe>')
         .appendTo(self.form)
         .remove();
-      var response = $(this).contents().find('body').html();
+      var response;
+      try {
+        response = $(this).contents().find("body").html();
+      } catch (e) {
+        response = "cross-domain";
+      }
       $(this).remove();
       if (!response) {
         if (self.settings.error) {
