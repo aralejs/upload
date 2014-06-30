@@ -1,4 +1,4 @@
-define("arale/upload/1.1.1/upload-debug", [ "$-debug" ], function(require, exports, module) {
+define("arale/upload/1.1.2/upload-debug", [ "$-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
     var iframeCount = 0;
     function Uploader(options) {
@@ -167,7 +167,12 @@ define("arale/upload/1.1.1/upload-debug", [ "$-debug" ], function(require, expor
                 // Fix for IE endless progress bar activity bug
                 // (happens on form submits to iframe targets):
                 $('<iframe src="javascript:false;"></iframe>').appendTo(self.form).remove();
-                var response = $(this).contents().find("body").html();
+                var response;
+                try {
+                    response = $(this).contents().find("body").html();
+                } catch (e) {
+                    response = "cross-domain";
+                }
                 $(this).remove();
                 if (!response) {
                     if (self.settings.error) {
