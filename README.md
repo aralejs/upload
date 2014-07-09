@@ -6,7 +6,6 @@
 
 iframe and html5 uploader.
 
-
 <span style="font-size:120px;line-height:0.4;color:rgb(255, 140, 42);font-family:Menlo;">⇪</span>
 
 ## 演示
@@ -17,6 +16,7 @@ iframe and html5 uploader.
 $ git clone git://github.com/aralejs/upload
 $ cd upload
 $ npm install
+$ spm install
 $ node server.js
 ```
 
@@ -146,7 +146,6 @@ $('#submit').click(function() {
     uploader.submit();
 });
 ```
-
 
 ## Show Progress
 
