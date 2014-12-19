@@ -33,6 +33,7 @@ var uploader = new Uploader({
     accept: 'image/*',
     data: {'xsrf': 'hash'},
     multiple: true,
+    useIframe: true,
     error: function(file) {
         alert(file);
     },
@@ -68,6 +69,10 @@ action 为 `<form action="{{action}}">` 的值，表单提交的地址。
 ### multiple `boolean`
 
 是否支持多文件上传。默认为 false。
+
+### useIframe `boolean`
+
+始终使用Iframe方式上传，默认为false。
 
 ### data `object`
 
