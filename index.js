@@ -127,7 +127,7 @@ Uploader.prototype.bindInput = function() {
 // prepare for submiting form
 Uploader.prototype.submit = function() {
   var self = this;
-  if (window.FormData && self._files) {
+  if (window.FormData && self._files && self.settings.useIframe !== true)) {
     // build a FormData
     var form = new FormData(self.form.get(0));
     // use FormData to upload
