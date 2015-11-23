@@ -102,6 +102,9 @@ Uploader.prototype.bind = function() {
       width: $trigger.outerWidth(),
       height: $trigger.outerHeight()
     });
+    self.input.css({
+      height: $trigger.outerHeight()
+    });
   });
   self.bindInput();
 };
